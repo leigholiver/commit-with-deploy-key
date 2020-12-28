@@ -1,0 +1,51 @@
+name: 'Commit with deploy key'
+description: 'Commit to another repository using a deploy key'
+inputs:
+  source:
+    description: 'The file/directory to commit'
+    required: true
+  deploy_key:
+    description: 'Private SSH key. Public key must be added to the destination repostitory as a deploy key with push access'
+    required: true
+  destination_repo:
+    description: 'Git repository to push changes to'
+    required: true
+  destination_folder:
+    description: 'Directory in destination repo to push changes to'
+    required: false
+    default: '.'
+  destination_branch:
+    description: 'Branch in destination repo to push changes to (default `main`)'
+    required: false
+    default: 'main'
+  delete_destination:
+    description: 'Delete destination directory contents before copy? (default `false`)'
+    required: false
+    default: false
+  git_username:
+    description: 'Git username'
+    required: false
+    default: ${{ github.actor }}
+  git_email:
+    description: 'Git email address'
+    required: false
+    default: ${{ github.actor }}
+  commit_message:
+    description: 'Commit message'
+    required: false
+    default: "${{ github.job }} from https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+outputs:
+  commit_hash:
+    description: 'The SHA hash of the generated commit'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.source }}
+    - ${{ inputs.destination_repo }}
+    - ${{ inputs.destination_folder }}
+    - ${{ inputs.delete_destination }}
+    - ${{ inputs.deploy_key }}
+    - ${{ inputs.git_username }}
+    - ${{ inputs.git_email }}
+    - ${{ inputs.commit_message }}
