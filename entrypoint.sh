@@ -29,9 +29,8 @@ cd $WORKING_DIR
 git checkout $INPUT_DESTINATION_BRANCH || git checkout -b $INPUT_DESTINATION_BRANCH
 
 # ensure destination directory exists, and is emptied if appropriate
-REAL_DESTINATION=$(realpath $WORKING_DIR/$INPUT_DESTINATION_FOLDER)/
-mkdir -p $REAL_DESTINATION
-cd $REAL_DESTINATION
+mkdir -p $INPUT_DESTINATION_FOLDER
+cd $INPUT_DESTINATION_FOLDER
 if [ "${INPUT_DELETE_DESTINATION}" = "true" ]; then
     git rm -rf .
 fi
