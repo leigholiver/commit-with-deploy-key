@@ -7,7 +7,7 @@ Action to commit a file/directory to another repo using a deploy key.
 * Add the private key to your source repo as a secret
 
 ```yaml
-uses: leigholiver/commit-with-deploy-key@v1.0.0
+uses: leigholiver/commit-with-deploy-key@v1.0.2
 with:
   source: build_output
   destination_folder: dist
