@@ -9,7 +9,6 @@ fi
 # set up some directories
 CALLING_DIR=$(pwd)
 WORKING_DIR=$(mktemp -d)
-REAL_DESTINATION=$(realpath $WORKING_DIR/$INPUT_DESTINATION_FOLDER)/
 
 # set up the github deploy key
 mkdir -p ~/.ssh
@@ -30,6 +29,7 @@ cd $WORKING_DIR
 git checkout $INPUT_DESTINATION_BRANCH || git checkout -b $INPUT_DESTINATION_BRANCH
 
 # ensure destination directory exists, and is emptied if appropriate
+REAL_DESTINATION=$(realpath $WORKING_DIR/$INPUT_DESTINATION_FOLDER)/
 mkdir -p $REAL_DESTINATION
 cd $REAL_DESTINATION
 if [ "${INPUT_DELETE_DESTINATION}" = "true" ]; then
