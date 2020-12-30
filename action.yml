@@ -1,5 +1,8 @@
 name: 'Commit with deploy key'
 description: 'Commit to another repository using a deploy key'
+branding:
+  icon: git-commit
+  color: green
 inputs:
   source:
     description: 'The file/directory to commit'
