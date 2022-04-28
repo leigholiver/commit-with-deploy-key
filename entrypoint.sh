@@ -42,9 +42,9 @@ elif [ -d $CALLING_DIR/$INPUT_SOURCE ]; then
     cp -a $CALLING_DIR/$INPUT_SOURCE/* .
 fi
 
-# commit and push
+# create the commit
 git add .
-git commit -m "${INPUT_COMMIT_MESSAGE}"
+git commit -m "${INPUT_COMMIT_MESSAGE}" || echo
 GIT_SSH_COMMAND=$GIT_SSH git push -u origin $INPUT_DESTINATION_BRANCH
 
 # output the commit hash
