@@ -85,9 +85,7 @@ jobs:
           deploy_key: ${{ secrets.DEPLOY_KEY }}
           commit_message: testing a custom commit message (${{ github.sha }})
 
-
-      # Test that fails on nothing to commit - a copy of the previous test
-      - name: test issue where workflow fails when there is nothing to commit
+      - name: test workflow doesnt fail when there is nothing to commit
         uses: ./
         with:
           source: tmp.txt
@@ -95,9 +93,6 @@ jobs:
           destination_branch: commit_message_test
           deploy_key: ${{ secrets.DEPLOY_KEY }}
           commit_message: testing a custom commit message (${{ github.sha }})
-
-      # Test that nothing to commit is OK
-
 
 
   # If the tests are successful, and we've merged to main, create a tag
