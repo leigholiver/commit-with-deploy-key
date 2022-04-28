@@ -42,10 +42,18 @@ elif [ -d $CALLING_DIR/$INPUT_SOURCE ]; then
     cp -a $CALLING_DIR/$INPUT_SOURCE/* .
 fi
 
-# commit and push
+# create the commit
 git add .
 git commit -m "${INPUT_COMMIT_MESSAGE}"
-GIT_SSH_COMMAND=$GIT_SSH git push -u origin $INPUT_DESTINATION_BRANCH
+
+# if there is a new commit - push it to the destination
+if [ ! -z "$(git cherry -v)" ]; then
+    GIT_SSH_COMMAND=$GIT_SSH git push -u origin $INPUT_DESTINATION_BRANCH
+
+# otherwise, don't try to push - this causes the workflow to fail
+else
+    echo "Nothing waiting to be pushed"
+fi
 
 # output the commit hash
 echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
