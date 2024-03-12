@@ -48,5 +48,5 @@ git commit -m "${INPUT_COMMIT_MESSAGE}" || echo
 GIT_SSH_COMMAND=$GIT_SSH git push -u origin $INPUT_DESTINATION_BRANCH
 
 # output the commit hash
-echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
+echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 exit 0
